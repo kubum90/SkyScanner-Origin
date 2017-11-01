@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.sky.mapper.YRMapper">
+
+   <insert id="departFlight">
+      INSERT INTO Flightreservation 
+      (
+      reservationNo, 
+      gender, 
+      surname, 
+      firstname, 
+      country, 
+      phone, 
+      email, 
+      flight_no, 
+      airline, 
+      cabin_class, 
+      departCity, 
+      arriveCity, 
+      departDate, 
+      arriveDate
+      )
+      VALUES
+      (
+      #{reservationNo},
+      #{gender},
+      #{surname},
+      #{firstname},
+      #{country},
+      #{phone},
+      #{email},
+      #{flight_no1},
+      #{airline},
+      #{cabin_class},
+      #{departCity},
+      #{arriveCity},
+      #{departDate},
+      #{arriveDate}
+      )
+   </insert>
+   <insert id="arriveFlight">
+      INSERT INTO Flightreservation 
+      (
+      reservationNo, 
+      gender, 
+      surname, 
+      firstname, 
+      country, 
+      phone, 
+      email, 
+      flight_no,
+      airline, 
+      cabin_class, 
+      departCity, 
+      arriveCity, 
+      departDate, 
+      arriveDate
+      )
+      VALUES
+      (
+      #{reservationNo},
+      #{gender},
+      #{surname},
+      #{firstname},
+      #{country},
+      #{phone},
+      #{email},
+      #{flight_no2},
+      #{airline},
+      #{cabin_class},
+      #{arriveCity},
+      #{departCity},
+      #{departDate},
+      #{arriveDate}
+      )
+   </insert>
+   <select id="selectList" resultType="com.web.sky.flight.Flight">
+      SELECT flight_no, airline, cabin_class, departCity, arriveCity, price FROM Flight;
+   </select>
+   <select id="selectOne"></select>
+   <select id="count">
+      SELECT COUNT(*) AS count FROM Member;
+   </select>
+   <update id="update"></update>
+   <delete id="delete"></delete>
+</mapper>

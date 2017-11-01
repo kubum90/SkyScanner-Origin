@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+.close {
+	background-color: blue;
+}
+
+#asdfc {
+	margin-left: 18%;
+}
+
+#h2t {
+	font-size: 1.1em;
+	margin-top: 3px;
+	margin-left: 33%;
+	font-weight: bold;
+}
+
+.content-main {
+	background-color: #f3f2f5
+}
+
+#ssssssss {
+	background-position: -369.644px -223.121px;
+}
+
+.image hi-res-image-loaded {
+	position: relative;
+	background-size: cover;
+}
+
+#home-container {
+	width: 100%
+}
+
+.page-day.spring-clean #content-wrapper #content, .page-month.spring-clean #content-wrapper #content
+	{
+	margin-top: 0;
+}
+
+.scrim {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.1);
+	z-index: 1;
+}
+
+#content {
+	width: calc(100% - 500px);
+	padd
+}
+
+.image hi-res-image-loaded {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 5rem;
+	color: white;
+	z-index: 2;
+	text-align: center;
+}
+#popover {
+    background-color: #fff;
+    box-shadow: 0 4px 14px 0 rgba(37,32,51,.25);
+    border-radius: .375rem;
+    outline: none;
+    z-index: 101;
+}
+.pax-cabin-class {
+    max-width: 368.64px;
+    width: 48%;
+    border: none;
+}    
+
+    .popover skyscanner-datepicker depart hidden{
+    position: absolute;
+    top: 295.333px; 
+    left: 561.5px;
+    }
+  
+/* login */

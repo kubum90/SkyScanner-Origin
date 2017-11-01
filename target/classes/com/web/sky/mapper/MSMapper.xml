@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.web.sky.mapper.MSMapper">
+
+   <resultMap type="com.web.sky.hotel.RespMap" id="respMap">       
+      <id property="hotelSeq" column="hotel_seq"/>       
+      <result property="hotelSite" column="hotel_site"/>       
+      <result property="hotelName" column="hotel_name"/>
+      <result property="destination" column="destination"/>       
+      <result property="district" column="district"/>       
+      <result property="price" column="price"/>       
+      <result property="rate" column="rate"/>       
+      <result property="guest" column="guest"/>       
+      <result property="numberOfRoom" column="number_of_room"/>              
+      <result property="articleName" column="article_name"/>       
+      <result property="hotelService" column="hotel_service"/>       
+      <result property="articleDate" column="article_date"/>       
+      <result property="location" column="location"/>       
+      <result property="hotelGeneral" column="hotel_general"/>       
+      <result property="room" column="room"/>       
+      <result property="guest_type" column="guest_type"/>       
+      <result property="atomosphere" column="atomosphere"/>       
+      <result property="internet" column="internet"/>       
+      <result property="email" column="email"/>              
+      <result property="refundPolicy" column="refund_policy"/>       
+      <result property="breakfast" column="breakfast"/>       
+      <result property="facility" column="facility"/>              
+      <result property="sirname" column="sirname"/>       
+      <result property="firstName" column="first_name"/>       
+      <result property="country" column="country"/>       
+      <result property="regdate" column="regdate"/>       
+      <result property="password" column="password"/>              
+      <result property="count" column="count"/>    
+   </resultMap>     
+   
+   <resultMap type="com.web.sky.hotel.Hotel" id="hotel">       
+      <id property="hotelSeq" column="hotel_seq"/>       
+      <result property="hotelSite" column="hotel_site"/>       
+      <result property="hotelName" column="hotel_name"/>       
+      <result property="destination" column="destination"/>       
+      <result property="district" column="district"/>       
+      <result property="price" column="price"/>       
+      <result property="rate" column="rate"/>       
+      <result property="guest" column="guest"/>       
+      <result property="numberOfRoom" column="number_of_room"/>    
+   </resultMap> 
+	
+   <insert id="insert" parameterType="com.web.sky.command.Command">
+   	Insert Into Member(email,password,regdate) values (#{search},#{dir},now());
+   </insert>
+   
+   
+   <select id="selectList" resultMap="hotel" parameterType="com.web.sky.command.Command">
+   	SELECT hotel_name, destination, district, price
+   	FROM hotel
+   	WHERE destination LIKE '%${action}%'
+   </select>
+   <select id="selectOne" resultType="com.web.sky.member.Member" parameterType="com.web.sky.command.Command">
+		SELECT *  FROM MEMBER 
+		WHERE email = #{search} and password = #{column};
+		
+   </select>
+   <select id="count" resultType="string" parameterType="com.web.sky.command.Command">
+   SELECT COUNT(*) AS count FROM MEMBER 
+   </select>
+   <update id="update"></update>
+   <delete id="delete"></delete>
+</mapper>
