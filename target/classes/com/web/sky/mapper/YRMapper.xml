@@ -4,85 +4,76 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.web.sky.mapper.YRMapper">
 
-   <insert id="departFlight">
-      INSERT INTO Flightreservation 
-      (
-      reservationNo, 
-      gender, 
-      surname, 
-      firstname, 
-      country, 
-      phone, 
-      email, 
-      flight_no, 
-      airline, 
-      cabin_class, 
-      departCity, 
-      arriveCity, 
-      departDate, 
-      arriveDate
-      )
-      VALUES
-      (
-      #{reservationNo},
-      #{gender},
-      #{surname},
-      #{firstname},
-      #{country},
-      #{phone},
-      #{email},
-      #{flight_no1},
-      #{airline},
-      #{cabin_class},
-      #{departCity},
-      #{arriveCity},
-      #{departDate},
-      #{arriveDate}
-      )
+   <!-- insert -->
+   
+   <insert id="insertRsvt" parameterType="com.web.sky.flight.Reservation">
+   INSERT INTO Reservation 
+   (reservationNo, gender, surname, firstname, country, phone, email) 
+   VALUES 
+   (#{reservationNo},#{gender},#{surname},#{firstname},#{country},#{phone},#{email})
    </insert>
-   <insert id="arriveFlight">
-      INSERT INTO Flightreservation 
-      (
-      reservationNo, 
-      gender, 
-      surname, 
-      firstname, 
-      country, 
-      phone, 
-      email, 
-      flight_no,
-      airline, 
-      cabin_class, 
-      departCity, 
-      arriveCity, 
-      departDate, 
-      arriveDate
-      )
-      VALUES
-      (
-      #{reservationNo},
-      #{gender},
-      #{surname},
-      #{firstname},
-      #{country},
-      #{phone},
-      #{email},
-      #{flight_no2},
-      #{airline},
-      #{cabin_class},
-      #{arriveCity},
-      #{departCity},
-      #{departDate},
-      #{arriveDate}
-      )
+   <insert id="insertDprt" parameterType="com.web.sky.flight.Departure">
+   INSERT INTO Departure
+   (reservationNo, flight_no, airline, cabin_class, depart_city, arrive_city, depart_date) 
+   VALUES 
+   (#{reservationNo},#{flightNo},#{airline},#{cabinClass},#{departCity},#{arriveCity},#{departDate});
    </insert>
-   <select id="selectList" resultType="com.web.sky.flight.Flight">
-      SELECT flight_no, airline, cabin_class, departCity, arriveCity, price FROM Flight;
+   <insert id="insertArrv" parameterType="com.web.sky.flight.Arrival">
+   INSERT INTO Arrival
+   (ReservationNo, flight_no, airline, cabin_class, depart_city, arrive_city, arrive_date) 
+   VALUES 
+   (#{reservationNo},#{flightNo},#{airline},#{cabinClass},#{departCity},#{arriveCity},#{arriveDate});
+   </insert>
+
+   <!-- select - count-->   
+   
+   <select id="countReservation" resultType="String">
+   SELECT count(*) FROM Reservation; 
    </select>
-   <select id="selectOne"></select>
-   <select id="count">
-      SELECT COUNT(*) AS count FROM Member;
+   <select id="countFlight" resultType="String">
+   SELECT count(*) FROM Flight;
    </select>
-   <update id="update"></update>
-   <delete id="delete"></delete>
+   
+   <!-- select - list -->
+   <select id="listMember" resultType="com.web.sky.member.Member">
+   SELECT email, password FROM Member;
+   </select>
+   <select id="listFlight" resultType="com.web.sky.flight.Flight">
+   SELECT flight_no, airline, cabin_class, depart_city, arrive_city, price 
+   FROM Flight;
+   </select>
+   <select id="listReservation" resultType="com.web.sky.flight.Reservation">
+   SELECT reservationNo, gender, surname, firstname, country, phone, email
+   FROM Reservation;
+   </select>
+   <select id="listArrival" resultType="com.web.sky.flight.Arrival">
+   SELECT reservationNo, flight_no AS flightNo, airline, cabin_class AS cabinClass, depart_city AS departCity, arrive_city AS arriveCity, arrive_date AS arriveDate
+   FROM Arrival;
+   </select>
+   <select id="listDeparture" resultType="com.web.sky.flight.Departure">
+   SELECT reservationNo, flight_no AS flightNo, airline, cabin_class AS cabinClass, depart_city AS departCity, arrive_city AS arriveCity, depart_date AS departDate
+   FROM Arrival;
+   </select>
+   <select id="listMap" resultType="com.web.sky.map.GMap" parameterType="com.web.sky.map.GMap">
+   SELECT lat, lng, airport, departcity
+   FROM GMap
+   WHERE departcity=#{departcity};
+   </select>
+   
+   <!-- select - one -->
+   <select id="selectMember" resultType="com.web.sky.member.Member" parameterType="com.web.sky.member.Member">
+   SELECT email, password FROM Member
+   WHERE email=#{email};
+   </select>
+   <select id="selectFlight" resultType="com.web.sky.flight.Flight" parameterType="com.web.sky.flight.Flight">
+   SELECT flight_no AS flightNo, airline, cabin_class AS cabinClass, depart_city as departCity, arrive_city AS arriveCity, price 
+   FROM Flight
+   WHERE flight_no = #{flightNo};
+   </select>
+   <select id="selectReservation" resultType="com.web.sky.flight.Reservation" parameterType="com.web.sky.flight.Reservation">
+   SELECT reservationNo, gender, surname, firstname, country, phone, email
+   FROM Reservation
+   WHERE reservationNo=#{reservationNo};
+   </select>
+   
 </mapper>

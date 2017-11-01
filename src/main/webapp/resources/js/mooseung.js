@@ -1,30 +1,17 @@
 var ms = ms || {};
-/* AIzaSyDQ54QGoZJi5Y9m5wxVGDzHkWIyPgh6-wM 내 구글 API key */
-
-// 1번 페이지
-//2017-11-1 할 일
-//광회 메인 가는 UI 기능으로 분리하기 , 호텔 navbar()에 로그인버튼 꺼내서 제어하기.
-
 ms.common=((ctx)=>{
 	var init=(ctx)=>{
-	
-	ms.session.init(ctx);
-	
-	onCreate();
+		ms.session.init(ctx);
+		onCreate();
 	};
 	var onCreate=()=>{
 		setContentView();
-		
-		$('#loginBu').click(()=>{
-			alert('호텔 로그인 버튼 조작');
-		});
-		
 		if(sessionStorage.getItem('email')===null){
 	
 		}else{
 			$('#loginBu').attr('class','bpk-button-30cpF bpk-button--secondary-lyMj0').attr('id','account').removeAttr('data-toggle','').removeAttr('data-target','').text('로그아웃');
 			$('#account').click(()=>{
-			alert('dsafdsaf');
+			
 			$('#account').attr('class','bpk-button-30cpF bpk-button--secondary-lyMj0').attr('id','loginBu').removeAttr('data-toggle','').removeAttr('data-target','').text('로그인');
 			sessionStorage.clear();
 			$('body').empty();
@@ -77,22 +64,49 @@ ms.common=((ctx)=>{
 					      $('#saleone').removeClass('#saleone').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/3d13492ebf1c1b0ac415bea8e172b960/GettyImages-505532917.jpg?resize=500px:600px&quality=50)");
 					      $('#saletwo').removeClass('#saletwo').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/7adba3a46af3ca29695f96937d19fcf1/GettyImages-149127892.jpg?resize=500px:600px&quality=50)");
 					      $('#saleth').removeClass('#saleth').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/e0a42512a8f7baba699430c43d90e339/GettyImages-465582049.jpg?resize=500px:600px&quality=50)");
-				  	      
 					      $('#loginBu').attr('class','bpk-button-30cpF bpk-button--secondary-lyMj0').attr('id','account').removeAttr('data-toggle','').removeAttr('data-target','').text('로그아웃');
 					      $('#account').click(()=>{
-					    	  alert('sdfdsafadfs');
+					    	  
 					    	  sessionStorage.clear();
 					    	  location.reload();
 					      });
 				}
-			 
-			
 	  	    
 		});
-		$('#ms-carli').click(()=>{
-			var ctx =$$('x');
-			hyunseok.hello.init(ctx);
-		});
+	    $('#ms-carli').click(e=>{
+	    	  var ctx=$$('x');
+	    	  e.preventDefault();
+	    	  if(sessionStorage.getItem('email')===null){
+	    		  
+	    	  }else{
+	    		  var _admin = sessionStorage.getItem('email');
+	              $.ajax({
+	              	url :ctx+'/adminCheck',
+	                  method : 'post',
+	                  dataType:'json',
+	                  data : JSON.stringify({
+	                    	  'email' : _admin                    	
+	                  }),
+	                  contentType : 'application/json',
+	                  success : (data)=>{
+	                	  if(data.email===null){
+	                		  
+	                	  }else{
+	                		  if(sessionStorage.getItem('email')===data.email){
+	                    		  $('body').empty();
+	                        	  hyunseok.hello.init(ctx);  
+	                    	  }else{
+	                    		  
+	                    	  }
+	                	  }
+	                  },
+	                  error : (x,s,m)=>{
+	                     alert('관리자 탭 에러'+m+'\n x에러: '+x+'\n s 에러'+s);
+	                  }
+	               });
+	    	    
+	    	  }
+	      });
 		$('#identity').click(()=>{
 			
 			var ctx=$$('x');
@@ -116,11 +130,8 @@ ms.common=((ctx)=>{
 			    	  sessionStorage.clear();
 			    	  location.reload();
 			      });
-			      
-			      
 		});
 	
-		
 		var today=new Date();
 		$('#sd-placeholder').datepicker({
 			defaultDate:today,
@@ -161,23 +172,20 @@ ms.common=((ctx)=>{
 					$('#ed').val($.datepicker.formatDate("yy-mm-dd",$('#ed-placeholder').datepicker('getDate')));
 				};
 	        }
-		})
-		;
+		});
 
 		sessionStorage.setItem('sdate',$('#sd').val());
 		sessionStorage.setItem('edate',$('#ed').val());
 		$('<button/>')
 			.insertAfter('#q')
 			.attr({id:'clear-search',type:'button',tabindex:'-1'})
-			.addClass('destination-clear hidden')
-			;
+			.addClass('destination-clear hidden');
 		
 		$('#q').bind('input',()=>{
 			if($('#q').val()===""){
 				$('#clear-search')
 				.removeClass('destination-clear')
-				.addClass('destination-clear hidden')
-				;
+				.addClass('destination-clear hidden');
 			}else{
 				$('#clear-search')
 				.removeClass('destination-clear hidden')
@@ -188,11 +196,9 @@ ms.common=((ctx)=>{
 					.removeClass('destination-clear')
 					.addClass('destination-clear hidden')
 					$('.autocomplete-suggestions').css('display','none');
-				})
-				;
+				});
 			};
-		})
-		;
+		});
 		
 		$('<button/>')
 			.appendTo('#div-search')
@@ -208,11 +214,7 @@ ms.common=((ctx)=>{
 					e.preventDefault();
 					alert('도시 이름을 검색해 주세요');
 			};
-		})
-		;
-		
-		
-
+		});
 	};
 	var setContentView=()=>{
 		$('#category-flights').addClass('lang-ko page-hotelsesi action-hotelsindex   default-layout scaffold-font-size   spring-clean month-view-spring-clean     no-touch');
@@ -239,11 +241,6 @@ ms.searchList=((q)=>{
 		});
 	};
 	
-/*
- * var auto=(list)=>{ var s=[{,,,}]; $.each(list,(i,v)=>{ s+=['호텔이름:
- * '+v.hotelName,'/ 지역: '+v.destination,'/ 구역:'+v.destination,'/
- * 가격:'+v.price+'\n']; }); $('#q').autocomplete({ source:[s] }); };
- */
 	return {searchSuggestion:searchSuggestion}
 })();
 
@@ -257,8 +254,9 @@ ms.chooseResult=((q,sdp,edp,na,nr)=>{
 	setContentView(q,sdp,edp,na,nr);
 	$('#authentication-link').click(()=>{ 
 		
-		/*$('body').append(ms.hotelUI.modal());
-		$('#idModal').modal();*/
+		/*
+		 * $('body').append(ms.hotelUI.modal()); $('#idModal').modal();
+		 */
 		var ctx=$$('x');
 		location.reload();
 		$('body').empty();
@@ -274,7 +272,7 @@ ms.chooseResult=((q,sdp,edp,na,nr)=>{
 	});
 	$('#identity').click(()=>{
 		var ctx=$$('x');
-		/*location.reload();*/
+		/* location.reload(); */
 		$('body').empty();
 	    skyAir.common.init(ctx);
 	    $('#home-container').removeClass('#home-container').addClass('.homecontent').css("background-image", "url(//content.skyscnr.com/6bf5a29ce130132f28e912434f295b76/canada-lake-feb.jpg?crop=2000px:599px&quality=80)");
@@ -295,7 +293,7 @@ ms.chooseResult=((q,sdp,edp,na,nr)=>{
 	
 	$('#ms-airli').click(()=>{
 		var ctx=$$('x');
-		//ㄴㄴ
+		// ㄴㄴ
 	  		  $('body').empty();
 	      	  skyAir.common.init(ctx);
 	      	$('#home-container').removeClass('#home-container').addClass('.homecontent').css("background-image", "url(//content.skyscnr.com/6bf5a29ce130132f28e912434f295b76/canada-lake-feb.jpg?crop=2000px:599px&quality=80)");
@@ -408,7 +406,7 @@ ms.hotelRecommand=((q,sdp,edp,na,nr)=>{
 			e.preventDefault();
 			$('#results-list').empty();
 			hotelList(q,sdp,edp,na,nr,$('#hotel-sort').val());
-			//호텔 상세리스트에서 로그인
+			// 호텔 상세리스트에서 로그인
 		
 		});
 	};
@@ -418,7 +416,7 @@ ms.hotelRecommand=((q,sdp,edp,na,nr)=>{
 		$('#category-flights').append(ms.hotelUI.index(ms.hotelUI.navbar(),ms.hotelRecommandUI.content(q,sdp,edp,na,nr),ms.hotelUI.footer()));
 		$('#ms-airli').click(()=>{
 			var ctx=$$('x');
-			//ㄴㄴ
+			// ㄴㄴ
 		  	$('body').empty();
 		  	 	
 		    skyAir.common.init(ctx);

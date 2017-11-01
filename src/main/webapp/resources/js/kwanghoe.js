@@ -59,7 +59,7 @@ skyAir.common=(()=>{
                     	  }
                 	  }
                 	 
-                  	alert('통신: '+data.success);
+                  	
                   	
                   },
                   error : (x,s,m)=>{
@@ -114,7 +114,7 @@ skyAir.common=(()=>{
      
 
       $('#loginBtn').click(e=>{
-      	alert('로그인버튼 클릭되었음');
+      	
       	
       	var i = $('#usrname').val();
       	var p = $('#psw').val();
@@ -129,19 +129,19 @@ skyAir.common=(()=>{
               }),
               contentType : 'application/json',
               success : (data)=>{
-              	alert('통신: '+data.success);
-              	alert('빈: '+data.bean.email);
+              	
+              	
               	if(data.bean.email===null){
-              	alert('로그인 실패');
+              	
               	}else{
-              	alert('로그인 성공');
+              	
               	sessionStorage.setItem('email',data.bean.email);
-              	alert('세션 스토리지 :: '+ sessionStorage.getItem('email'));
+              	
               	$('#loginBu').attr('class','bpk-button-30cpF bpk-button--secondary-lyMj0').attr('id','account').removeAttr('data-toggle','').removeAttr('data-target','').text('로그아웃');
               
               	}     
               	$('#account').click(()=>{
-                	alert('logout');
+                
                 	$('body').empty();
                 	location.reload();
                 	skyAir.common.init(ctx);
@@ -165,7 +165,7 @@ skyAir.common=(()=>{
       });
       
       $('#signup').click(()=>{
-      	alert('sign up');
+      	
       	var signup='<div class="modal-body" style="padding:40px 50px;">'
       	+'<a style="margin-left:100%;" class="clos" data-dismiss="modal">×</a>'
   	+'        <form role="form">'
@@ -191,7 +191,7 @@ skyAir.common=(()=>{
       
       	$('#goJoin').click(e=>{
     	e.preventDefault();
-    	alert('조인 버튼 클릭');
+    	
     	var _email = $('#usrname').val();
     	var _pw = $('#psw').val();
     	$.ajax({
@@ -204,61 +204,17 @@ skyAir.common=(()=>{
                 }),
                 contentType : 'application/json',
                 success : (data)=>{
-                	alert('통신: '+data.success);
+                	location.reload();
                 	
-              /*  	if(data.success==='통신성공'){
-                	alert('가입성공');
-                	//$('#login').remove();
-                	//$('#button').before(compUI.span('session').text(data.bean.name+'님 환영합니다.'));
-                	}else{
-                	alert('가입 실패');
-                	}   */   	
+            
                    
                 },
                 error : (x,s,m)=>{
                    alert('가입 에러'+m+'\n x에러: '+x+'\n s에러'+s);
                 }
-    	});
+    		});
     	});
     	
-    	
-    /*	 $('#loginmm').click(()=>{
-    	    	alert('???');
-    	    	var loginmm='<div class="modal-content" >'
-	    	+'      <div class="modal-header" style="padding:35px 50px;">'
-	    	+'      <button type="button" class="close" data-dismiss="modal">&times;</button>'	    	
-	    	+'      <span class=""></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-	    	+'      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 로그인 또는 회원가입'
-	    	+'      </div>'
-	    	+'      <div class="modal-body" style="padding:80px 50px; float: left;">'
-	    	+'        <button type="submit" class="btn btn-success btn-block" style="background-color: blue;" data-dismiss="modal">Login By FaceBook</button>'
-	    	+'        <p style="position:absolute; width: 110%; padding: 50px 10px 0px 0px;">Not a member? <a id="joinmm" href="#"><b id="signup" style="color: red;">Sign Up</b></a></p>'	    	
-	    	+'      </div>'
-	    	+'      <div class="modal-body" style="padding:80px 50px; float: right;">'
-	    	+'        <form role="form">'
-	    	+'          <div class="form-group">'
-	    	+'            <label for="usrname"><span class="glyphicon glyphicon-envelope"></span> Username</label>'
-	    	+'            <input type="text" class="form-control" id="usrname" placeholder="Enter email">'
-	    	+'          </div>'
-	    	+'          <div class="form-group">'
-	    	+'            <label for="psw"><span class="glyphicon glyphicon-lock"></span> Password</label>'
-	    	+'            <input type="password" class="form-control" id="psw" placeholder="Enter password">'
-	    	+'          </div>'
-	    	+'          <div class="checkbox">'
-	    	+'            <label><input type="checkbox" value="" checked>Remember me</label>'
-	    	+'          </div>'
-	    	+'          <button id="loginBtn" type="submit" class="btn btn-success btn-block" data-dismiss="modal"><span class="glyphicon glyphicon-off"></span> Login</button>'
-	    	+'        </form>'
-	    	+'      </div>'
-	    	+'      <div class="modal-footer" style="">'
-	    	+'      </div>'
-	    	+'    </div>    '	
-    	    	$('.modal-content').empty();
-    	    	$('.modal-content').append(loginmm);
-    	    	
-    	    
-    	    	
-    	    });*/
       });
       
      
@@ -1191,16 +1147,14 @@ skyAir.ticket=(()=>{
               +'</div>'
               +'</div>'
               +'</article>'
-             /* $('<img/>').attr('src',arr[i]).appendTo($('#airline'+i));*/
+             
               $(document).ready(()=>{
             	  $('#modalaction'+i+'').click(e=>{
             	  e.preventDefault();
             	  alert('선택 항공=>'+val.airline+', 선택 항공 번호=>'+val.flight_no);
             	  $('#content-wrap').append(skyAir.timeline.modaldal(val));
             	  $('#yesBtn').click(e=>{
-            	/*	  if(sessionStorage.getItem('email')===null){
-            	  alert('로그인을 해주세용~@@')
-            	  }*/
+            	
             
             	  $.ajax({
             	  url:$$('x')+'/reserve',
@@ -1226,7 +1180,7 @@ skyAir.ticket=(()=>{
             	  $('#modaldal').remove();
             	  });
             	  $('#noBtn').click(()=>{
-            	  alert('아니요 클릭!')
+            	  
             	  $('#modaldal').remove();
             	  });
             	  });
