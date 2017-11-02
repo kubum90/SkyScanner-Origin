@@ -60,23 +60,25 @@
 	z-index: 2;
 	text-align: center;
 }
-#popover {
-    background-color: #fff;
-    box-shadow: 0 4px 14px 0 rgba(37,32,51,.25);
-    border-radius: .375rem;
-    outline: none;
-    z-index: 101;
-}
-.pax-cabin-class {
-    max-width: 368.64px;
-    width: 48%;
-    border: none;
-}    
 
-    .popover skyscanner-datepicker depart hidden{
-    position: absolute;
-    top: 295.333px; 
-    left: 561.5px;
-    }
-  
+#popover {
+	background-color: #fff;
+	box-shadow: 0 4px 14px 0 rgba(37, 32, 51, .25);
+	border-radius: .375rem;
+	outline: none;
+	z-index: 101;
+}
+
+.pax-cabin-class {
+	max-width: 368.64px;
+	width: 48%;
+	border: none;
+}
+
+.popover skyscanner-datepicker depart hidden {
+	position: absolute;
+	top: 295.333px;
+	left: 561.5px;
+}
+
 /* login */

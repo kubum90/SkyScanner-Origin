@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public abstract class Proxy {
 	HttpServletRequest request;
+
 	public Proxy(HttpServletRequest request) {
-		this.request=request;
+		this.request = request;
 	}
 }

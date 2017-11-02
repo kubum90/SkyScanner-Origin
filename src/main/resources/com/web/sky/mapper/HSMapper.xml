@@ -7,69 +7,82 @@
 	<select id="selectList"></select>
 	<select id="selectOne"></select>
 	<select id="countMember" resultType="string">
-	SELECT COUNT(*)AS count FROM Member;	
+		SELECT COUNT(*)AS count FROM Member;
 	</select>
-		<select id="countFlight" resultType="string">
-	SELECT COUNT(*)AS count FROM Flight;	
+	<select id="countFlight" resultType="string">
+		SELECT COUNT(*)AS count FROM Flight;
 	</select>
 	<select id="countHotel" resultType="string">
-	SELECT COUNT(*)AS count FROM Hotel;	
+		SELECT COUNT(*)AS count FROM Hotel;
 	</select>
-	<select id="adminCheck" resultType="com.web.sky.member.Member" parameterType="com.web.sky.command.Command">
+	<select id="adminCheck" resultType="com.web.sky.member.Member"
+		parameterType="com.web.sky.command.Command">
 		select s.email
-		from(select  * from member where authority =1 ) s
+		from(select * from member where authority
+		=1 ) s
 		where s.email =#{search};
 	</select>
 	<select id="selectAdminEmail" resultType="string">
-	select email from member where authority like 1;
+		select email from member where authority like 1;
 	</select>
 
-<select id="selectAdminSir" resultType="string">
-	   SELECT surname FROM member where authority like 1;
+	<select id="selectAdminSir" resultType="string">
+		SELECT surname FROM member where authority like 1;
 	</select>
 	<select id="selectAdminFirst" resultType="string">
-	   SELECT firstname FROM member where authority like 1;
+		SELECT firstname FROM member where authority like 1;
 	</select>
-	
+
 	<select id="selectAdminPassword" resultType="string">
-	select password from member where authority like 1;
+		select password from member where authority like 1;
 	</select>
-	  <select  id="memberList" resultType="com.web.sky.member.Member">
-	 select email,firstname as firstName,surname,country,regdate  from member ;
- </select>
-  <select  id="searchMember" resultType="com.web.sky.member.Member" parameterType="com.web.sky.command.Command">
-	select email,firstname as firstName,surname,country,regdate
-	 from member 
-	 where email=#{search} or firstname =#{search} or surname=#{search} or country=#{search};
- </select>
-  <select  id="selectPass" resultType="com.web.sky.member.Member" parameterType="com.web.sky.command.Command">
-	select password
-	 from member 
-	 where email=#{search};
- </select>
-<select id="updateAdmin" resultType="com.web.sky.member.Member" parameterType="com.web.sky.command.Command">
-	 update member 
-	 set email=#{search} ,firstname=#{column},surname=#{dir}, password=#{action} 
-	 where authority like 1;
+	<select id="memberList" resultType="com.web.sky.member.Member">
+		select email,firstname as firstName,surname,country,regdate from member ;
+	</select>
+	<select id="searchMember" resultType="com.web.sky.member.Member"
+		parameterType="com.web.sky.command.Command">
+		select email,firstname as firstName,surname,country,regdate
+		from member
+		where email=#{search} or firstname =#{search} or surname=#{search} or
+		country=#{search};
+	</select>
+	<select id="selectPass" resultType="com.web.sky.member.Member"
+		parameterType="com.web.sky.command.Command">
+		select password
+		from member
+		where email=#{search};
+	</select>
+	<select id="updateAdmin" resultType="com.web.sky.member.Member"
+		parameterType="com.web.sky.command.Command">
+		update member
+		set email=#{search} ,firstname=#{column},surname=#{dir},
+		password=#{action}
+		where authority like 1;
 	</select>
 	<update id="updateMember" parameterType="com.web.sky.command.Command">
-	update member 
-	set firstname=#{action},surname=#{view},country=#{page} where email=#{search} ;
+		update member
+		set firstname=#{action},surname=#{view},country=#{page} where
+		email=#{search} ;
 	</update>
-	<update id="updateMember1"  parameterType="com.web.sky.command.Command">
-	update member 
-	set password=#{column}, firstname=#{action},surname=#{view},country=#{page} where email=#{search} and password=#{dir} ;
+	<update id="updateMember1" parameterType="com.web.sky.command.Command">
+		update member
+		set password=#{column},
+		firstname=#{action},surname=#{view},country=#{page} where
+		email=#{search} and password=#{dir} ;
 	</update>
-	<select id="newAdmin" resultType="com.web.sky.member.Member" parameterType="com.web.sky.command.Command">
-  		update member set authority='1' 
-  		where (email= #{search} AND password = #{action});
-		</select>
-	<select id="newAdmin1" resultType="com.web.sky.member.Member" parameterType="com.web.sky.command.Command">
-  		update member set authority='0' where authority='1';
-		</select>	
+	<select id="newAdmin" resultType="com.web.sky.member.Member"
+		parameterType="com.web.sky.command.Command">
+		update member set authority='1'
+		where (email= #{search} AND password = #{action});
+	</select>
+	<select id="newAdmin1" resultType="com.web.sky.member.Member"
+		parameterType="com.web.sky.command.Command">
+		update member set authority='0' where authority='1';
+	</select>
 	<update id="update"></update>
-	<delete id="deleteMember"  parameterType="com.web.sky.command.Command">
-		DELETE FROM Member WHERE email = #{search} 
+	<delete id="deleteMember" parameterType="com.web.sky.command.Command">
+		DELETE FROM Member WHERE
+		email = #{search}
 	</delete>
 
 </mapper>

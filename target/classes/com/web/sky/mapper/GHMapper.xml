@@ -4,22 +4,54 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.web.sky.mapper.GHMapper">
 
-   <insert id="insert"></insert>
-   <select id="selectList" resultType="java.util.Map" parameterType="com.web.sky.command.Command">
-         SELECT flight_no,airline,cabin_class,departCity,arriveCity, format(price,0) price FROM flight;
-   </select>
-   <select id="selectAll" resultType="java.util.Map" parameterType="com.web.sky.command.Command">
-      SELECT flight_no,airline,cabin_class,departCity,arriveCity, format(price,0) price FROM flight WHERE airline like #{column} AND departCity like #{search}; 
-    
-   </select>
-   <select id="price" resultType="java.util.Map" parameterType="com.web.sky.command.Command">
-      SELECT  airline  airline, min( format(price,0)) price
-   FROM flight
-   GROUP BY airline;
-   </select>   
-   <select id="selectOne">
-  </select> 
-   <select id="count"></select>
-   <update id="update"></update>
-   <delete id="delete"></delete>
+	<insert id="insert" parameterType="com.web.sky.flight.FlightReserve">
+		insert into reservation (
+		reservationNo ,gender, surname, firstname, country, phone,email)
+		VALUES
+		(#{reservationNO},#{gender},#{surname},#{firstname},#{country},#{phone},#{email});
+
+	</insert>
+	<insert id="insertDprt" parameterType="com.web.sky.flight.FlightReserve">
+		insert into departure (
+		reservationNo ,flight_no, airline, cabin_class, depart_city,
+		arrive_city,depart_date)
+		VALUES
+		(#{reservationNO},#{flight_no},#{airline},#{cabin_class},#{depart_city},#{arrive_city},#{depart_date});
+	</insert>
+	<insert id="insertArrv" parameterType="com.web.sky.flight.FlightReserve">
+		insert into arrival (
+		reservationNo ,flight_no, airline, cabin_class, depart_city,
+		arrive_city,arrive_date)
+		VALUES
+		(#{reservationNO},#{flight_no},#{airline},#{cabin_class},#{depart_city},#{arrive_city},#{arrive_date});
+	</insert>
+	<select id="selectList" resultType="java.util.Map"
+		parameterType="com.web.sky.command.Command">
+		SELECT flight_no,airline,cabin_class,departCity,arriveCity, format(price,0)
+		price FROM flight;
+	</select>
+	<select id="selectAll" resultType="java.util.Map" parameterType="com.web.sky.command.Command">
+		SELECT flight_no,airline,cabin_class,departCity,arriveCity,
+		format(price,0) price FROM flight WHERE airline like #{column} AND
+		departCity like #{search};
+
+	</select>
+	<select id="price" resultType="java.util.Map" parameterType="com.web.sky.command.Command">
+		SELECT airline airline, min( format(price,0)) price
+		FROM flight
+		GROUP BY airline;
+	</select>
+	<select id="ress" resultType="java.util.Map" parameterType="com.web.sky.command.Command">
+		select r.reservationNo,r.surname,d.depart_city,d.arrive_city,d.airline
+		FROM reservation r
+		join departure d on r.reservationNo=d.reservationNo
+		where r.reservationNo=#{search};
+
+	</select>
+
+	<select id="selectOne">
+	</select>
+	<select id="count"></select>
+	<update id="update"></update>
+	<delete id="delete"></delete>
 </mapper>

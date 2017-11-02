@@ -6,14 +6,23 @@ import org.springframework.stereotype.Repository;
 
 import com.web.sky.command.Command;
 
-@Repository 
+@Repository
 public interface MSMapper {
-   public void insert(Object o);
-   public List<?> selectList(Command cmd);
-   public List<?> recommandList(Command cmd);
-   public Object selectOne(Command cmd);
-   public Object selectFilter(Command cmd);
-   public String count(Command cmd);
-   public void update(Object o);
-   public void delete(Command cmd);
+	public void insert(Object o);
+
+	public void insertReserve(Object o);
+
+	public List<?> selectList(Command cmd);
+
+	public List<?> recommandList(Command cmd);
+
+	public Object selectOne(Command cmd);
+
+	public Object selectFilter(Command cmd);
+
+	public Object count(Command cmd);
+
+	public void update(Object o);
+
+	public void delete(Command cmd);
 }

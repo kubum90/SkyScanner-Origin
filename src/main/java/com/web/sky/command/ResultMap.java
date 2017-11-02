@@ -1,16 +1,13 @@
 package com.web.sky.command;
 
-import org.springframework.stereotype.Component
-;
+import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
-
-
-
-@Data @Component
+@Data
+@Component
 public class ResultMap {
 
- private String  email,sirName,firstName,country,regdate,password;
- private int budget,newsSeq,authority;
+	private String email, sirName, firstName, country, regdate, password;
+	private int budget, newsSeq, authority;
 }

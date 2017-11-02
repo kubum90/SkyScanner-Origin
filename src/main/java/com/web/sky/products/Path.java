@@ -5,7 +5,9 @@ import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
-@Data @Lazy @Component
+@Data
+@Lazy
+@Component
 public class Path {
-	private String ctx,img,js,css;
+	private String ctx, img, js, css;
 }

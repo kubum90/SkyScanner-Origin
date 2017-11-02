@@ -1,7 +1,5 @@
 package com.web.sky.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 @Service

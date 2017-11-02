@@ -36,9 +36,9 @@ skyAir.common=(()=>{
       $('#adminhi').click(e=>{
     	  e.preventDefault();
     	  if(sessionStorage.getItem('email')===null){
-    		  
+    	  
     	  }else{
-    		  var _admin = sessionStorage.getItem('email');
+    	  var _admin = sessionStorage.getItem('email');
               $.ajax({
               	url :ctx+'/adminCheck',
                   method : 'post',
@@ -49,18 +49,15 @@ skyAir.common=(()=>{
                   contentType : 'application/json',
                   success : (data)=>{
                 	  if(data.email===null){
-                		  
+                	  
                 	  }else{
-                		  if(sessionStorage.getItem('email')===data.email){
-                    		  $('body').empty();
+                	  if(sessionStorage.getItem('email')===data.email){
+                    	  $('body').empty();
                         	  hyunseok.hello.init(ctx);  
                     	  }else{
-                    		  
+                    	  
                     	  }
                 	  }
-                	 
-                  	
-                  	
                   },
                   error : (x,s,m)=>{
                      alert('관리자 탭 에러'+m+'\n x에러: '+x+'\n s 에러'+s);
@@ -87,35 +84,20 @@ skyAir.common=(()=>{
     	 if(sessionStorage.getItem('ret')!=null){
     	 if(sessionStorage.getItem('n')!=null){
     	 $('body').empty();
+    	 e.preventDefault();
     	 skyAir.ticket.init(ctx);
     	 sessionStorage.removeItem('depart');
     	 sessionStorage.removeItem('ret');
     	 sessionStorage.removeItem('n');
-    	 e.preventDefault();
-    	 }
-    	 if(sessionStorage.getItem('n')===null){
-    	 
-    	 }
-    	 }
-    	 if(sessionStorage.getItem('ret')===null){
-    	 
-    	 }
-    	 }
-    	 if(sessionStorage.getItem('depart')===null){
-    	 
-    	 }
+    	 }else{alert('인원을 선택해 주세요')}
+    	 }else{alert('도착할 날짜를 선택해주세요')}	
+    	 }else{alert('출발할 날짜를 선택해 주세요')} 
     	  if(sessionStorage.getItem('email')===null){
-				
-			}else{
-				$('#loginBut').attr('class','bpk-button-30cpF bpk-button--secondary-lyMj0').attr('id','account').removeAttr('data-toggle','').removeAttr('data-target','').text('로그아웃');		
-			}
-    	 
+	}else{
+	$('#loginBut').attr('class','bpk-button-30cpF bpk-button--secondary-lyMj0').attr('id','account').removeAttr('data-toggle','').removeAttr('data-target','').text('로그아웃');	
+	}
       });
-     
-
       $('#loginBtn').click(e=>{
-      	
-      	
       	var i = $('#usrname').val();
       	var p = $('#psw').val();
       	e.preventDefault();
@@ -129,23 +111,22 @@ skyAir.common=(()=>{
               }),
               contentType : 'application/json',
               success : (data)=>{
-              	
-              	
               	if(data.bean.email===null){
-              	
+              	alert('로그인 실패');
               	}else{
-              	
               	sessionStorage.setItem('email',data.bean.email);
-              	
+              	sessionStorage.setItem('phone',data.bean.phone);
+              	sessionStorage.setItem('country',data.bean.country);
+              	sessionStorage.setItem('firstname',data.bean.firstname);
+              	sessionStorage.setItem('surname',data.bean.surname);
+            	sessionStorage.setItem('gender',data.bean.gender);
               	$('#loginBu').attr('class','bpk-button-30cpF bpk-button--secondary-lyMj0').attr('id','account').removeAttr('data-toggle','').removeAttr('data-target','').text('로그아웃');
               
               	}     
               	$('#account').click(()=>{
-                
                 	$('body').empty();
                 	location.reload();
                 	skyAir.common.init(ctx);
-                	  
                 $('#home-container').removeClass('#home-container').addClass('.homecontent').css("background-image", "url(//content.skyscnr.com/6bf5a29ce130132f28e912434f295b76/canada-lake-feb.jpg?crop=2000px:599px&quality=80)");
         	      $('#first').removeClass('#first').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/853dd1ece19afb1f46dabe8485021767/GettyImages-564760601.jpg?resize=500px:600px&quality=50)");
         	      $('#two').removeClass('#two').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/a60a89126ed3f927d123c815b610298d/GettyImages-475335963.jpg?resize=600px:600px&quality=50)");
@@ -155,9 +136,8 @@ skyAir.common=(()=>{
         	      $('#saletwo').removeClass('#saletwo').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/7adba3a46af3ca29695f96937d19fcf1/GettyImages-149127892.jpg?resize=500px:600px&quality=50)");
         	      $('#saleth').removeClass('#saleth').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/e0a42512a8f7baba699430c43d90e339/GettyImages-465582049.jpg?resize=500px:600px&quality=50)");
         	      
-              });
-                 /*alert('로그인 할 사람 패스워드: '+data.password);*/
-              },
+              }); 
+          },
               error : (x,s,m)=>{
                  alert('글 게시시 에러발생'+m+'\n x에러: '+x+'\n s에러'+s);
               }
@@ -165,7 +145,6 @@ skyAir.common=(()=>{
       });
       
       $('#signup').click(()=>{
-      	
       	var signup='<div class="modal-body" style="padding:40px 50px;">'
       	+'<a style="margin-left:100%;" class="clos" data-dismiss="modal">×</a>'
   	+'        <form role="form">'
@@ -204,17 +183,54 @@ skyAir.common=(()=>{
                 }),
                 contentType : 'application/json',
                 success : (data)=>{
-                	location.reload();
                 	
-            
+                	
+              /*
+	 * if(data.success==='통신성공'){ alert('가입성공');
+	 * //$('#login').remove();
+	 * //$('#button').before(compUI.span('session').text(data.bean.name+'님
+	 * 환영합니다.')); }else{ alert('가입 실패'); }
+	 */   	
                    
                 },
                 error : (x,s,m)=>{
                    alert('가입 에러'+m+'\n x에러: '+x+'\n s에러'+s);
                 }
-    		});
+    	});
     	});
     	
+    	
+    /*
+	 * $('#loginmm').click(()=>{ alert('???'); var loginmm='<div
+	 * class="modal-content" >' +' <div class="modal-header" style="padding:35px
+	 * 50px;">' +' <button type="button" class="close"
+	 * data-dismiss="modal">&times;</button>' +' <span class=""></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +'
+	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 * 로그인 또는 회원가입' +' </div>' +' <div class="modal-body" style="padding:80px
+	 * 50px; float: left;">' +' <button type="submit" class="btn btn-success
+	 * btn-block" style="background-color: blue;" data-dismiss="modal">Login By
+	 * FaceBook</button>' +'
+	 * <p style="position:absolute; width: 110%; padding: 50px 10px 0px 0px;">Not
+	 * a member? <a id="joinmm" href="#"><b id="signup" style="color:
+	 * red;">Sign Up</b></a></p>' +' </div>' +' <div class="modal-body"
+	 * style="padding:80px 50px; float: right;">' +' <form role="form">' +' <div
+	 * class="form-group">' +' <label for="usrname"><span class="glyphicon
+	 * glyphicon-envelope"></span> Username</label>' +' <input type="text"
+	 * class="form-control" id="usrname" placeholder="Enter email">' +' </div>' +'
+	 * <div class="form-group">' +' <label for="psw"><span class="glyphicon
+	 * glyphicon-lock"></span> Password</label>' +' <input type="password"
+	 * class="form-control" id="psw" placeholder="Enter password">' +' </div>' +'
+	 * <div class="checkbox">' +' <label><input type="checkbox" value=""
+	 * checked>Remember me</label>' +' </div>' +' <button id="loginBtn"
+	 * type="submit" class="btn btn-success btn-block" data-dismiss="modal"><span
+	 * class="glyphicon glyphicon-off"></span> Login</button>' +' </form>' +'
+	 * </div>' +' <div class="modal-footer" style="">' +' </div>' +' </div> '
+	 * $('.modal-content').empty(); $('.modal-content').append(loginmm);
+	 * 
+	 * 
+	 * 
+	 * });
+	 */
       });
       
      
@@ -245,7 +261,7 @@ skyAir.common=(()=>{
 	        dataType:'json',
 	        contentType : 'application/json',
 	        success : (data)=>{
-	        	alert('항공리스트'+data.list);
+	        	
 	        }
 	     
 	     });
@@ -273,7 +289,7 @@ skyAir.common=(()=>{
 	dayNamesMin:["일", "월", "화", "수", "목", "금", "토"],
 	monthNames:["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
 	monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
-	dateFormat:"yy. mm. dd.",
+	dateFormat:"yy-mm-dd",
 	minDate:"+0d",
 	onClose: function(selectedDate) {
 	if($("#js-return-input").val() < selectedDate){
@@ -288,7 +304,7 @@ skyAir.common=(()=>{
 	dayNamesMin:["일", "월", "화", "수", "목", "금", "토"],
 	monthNames:["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
 	monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
-	dateFormat:"yy. mm. dd.",
+	dateFormat:"yy-mm-dd",
 	minDate:"+1d",
 	onClose: function(selectedDate) {
 	if($("#js-depart-input").val() > selectedDate){
@@ -312,6 +328,7 @@ skyAir.common=(()=>{
 	        if(num<8){
 	        num = $("#js-adults:eq("+n+")").val(num*1+1);
 	        sessionStorage.setItem('n', $("#js-adults:eq("+n+")").val());
+	        sessionStorage.setItem('n1', $("#js-adults:eq("+n+")").val());
 	        }
 	    });
 	    $('#decrement').click(()=>{
@@ -320,6 +337,7 @@ skyAir.common=(()=>{
 	        if(num>0){
 	        num = $("#js-adults:eq("+n+")").val(num*1-1);
 	        sessionStorage.setItem('n', $("#js-adults:eq("+n+")").val());
+	        sessionStorage.setItem('n1', $("#js-adults:eq("+n+")").val());
 	        }
 	    });
 
@@ -753,11 +771,11 @@ skyAir.Head={
       },
       popover:()=>{
     	return '<div id="popover" class="popover pax-cabin-class" style="position: absolute; top: 295.333px; left: 780.333px;"><header class="clearfix">'
-    /*	+'  <span class="popover-title">좌석 등급 및 승객</span>'*/
-    /*	+'  <button type="button" class="popover-hide">완료</button>'*/
+    /* +' <span class="popover-title">좌석 등급 및 승객</span>' */
+    /* +' <button type="button" class="popover-hide">완료</button>' */
     	+'</header>'
     	+'<div class="popover-content clearfix">'
-    	/*+'  <button type="button" class="popover-hide ">완료</button>'*/
+    	/* +' <button type="button" class="popover-hide ">완료</button>' */
     	+'<label for="js-cabin-class-dropdown">좌석 등급</label><select id="js-cabin-class-dropdown" class="cabin-class-dropdown hidden" tabindex="1"><option value="Economy">일반석</option><option value="PremiumEconomy">프리미엄 일반석</option><option value="Business">비즈니스석</option><option value="First">일등석</option></select><div id="js-cabin-class-economy-only" class="cabin-class-economy-only"><p><strong>검색하신 노선은 일반석 가격만 보여 드릴 수 있습니다.</strong></p><p>비즈니스석 및 일등석 옵션을 보려면 정확한 날짜 및/또는 도착지 도시 이름을 알려주세요.</p></div><div id="js-travellers" class="traveller-nudgers"><label for="js-adults" value="1" class="traveller-label">성인</label>'
     	+'<button type="button" id="decrement" class="decrement adults" data-selector="#js-adults" tabindex="1">−</button>'
     	+'<input type="text" id="js-adults" readonly="" value="0">'
@@ -805,7 +823,227 @@ skyAir.ticket=(()=>{
 	};
 	var onCreate=function(){
 	$(document).ready(function(){
-	//$('#pagewrap').append(skyAir.timeline.modaldal());
+	
+	   $.ajax({
+	    	   url:$$('x')+'/flightlist/1',
+	    	   method:'get',
+	    	   dataType:'json',
+	    	   contentType:'application/json',
+	    	   success:(data)=>{
+	  	data.fl
+	    	   var pagination='';
+	    	    var start_page=data.startPage;
+	    	var end_page=data.endPage;
+	    	var page_num=data.pageNum;
+	    	var page_size=data.pageSize;
+	    	var total_page=data.totalPage;
+	    	var block_size=data.blockSize;
+	    	console.log('start_page '+start_page )
+	    	console.log('end_page '+end_page )
+	    	console.log('page_num '+page_num )
+	    	console.log('page_size '+page_size)
+	    	console.log('total_page'+total_page)
+	    	console.log('block_size '+block_size )
+	    	console.log(data.count);
+	    	
+	    	var flist='';
+	    	 for(var i=start_page;i<=page_size;i++){
+	    	           	flist+='<li class="day-list-item clearfix ">'
+	    	           	+' <article data-cid="model_44977" data-deeplink="details" class="card result clearfix no-details  " ontouchstart="">'
+	    	              +'<div class="card-body clearfix">'
+	    	              +'<div class="clearfix carrier">'
+	    	              +'<img src="//logos.skyscnr.com/images/airlines/favicon/78.png" alt="제주항공" onerror="__imgErrRemove__(this)">'
+	    	              +'<span>제주항공</span>'
+	    	              +'</div>'
+	    	              +'<section data-id="'+i+'" class="card-main leg clearfix dept">'
+	    	              +'<div class="big-airline">'
+	    	              +'<img class="big"   src="//logos.skyscnr.com/images/airlines/small/78.png" alt="대한항공" data-name="'+data.list[i].airline+'" onerror="__logoReplace__(this)">'
+	    	              +'</div>'
+	    	              +'<div class="leg-details long-date-format">'
+	    	              +'<div class="depart"><span class="station-tooltip" data-id=900>'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12409">'+data.list[i].departCity+'</span></span>'
+	    	              +'</div>'
+	    	              +'<div class="stops">'
+	    	              +'<span class="duration">1시간 05분</span>'
+	    	              +'<ul class="stop-line">'
+	    	              +'<li class="stop-line">'
+	    	              +'</li>'
+	    	              +'</ul>'
+	    	              +'<div class="leg-stops no-stops">'
+	    	              +'<span class="leg-stops-green leg-stops-label">'+data.list[i].cabin_class+' </span>'
+	    	              +'<span class="leg-stops-station"></span>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<div class="arrive"><span class="station-tooltip" data-id=900>'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12001">'+data.list[i].arriveCity+'</span>'
+	    	              +'</span>'
+	    	              +'</div>'
+	    	              +'<div class="clearfix">'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</section>'
+	    	              +'<section data-id="'+i+'" class="card-main leg clearfix retn">'
+	    	              +' <div class="big-airline" >'
+	    	              +'<img class="big" id="airline" src="//logos.skyscnr.com/images/airlines/small/78.png" alt="Spring Airlines" data-name="Spring Airlines" onerror="__logoReplace__(this)">'
+	    	              +'</div>'
+	    	              +'<div class="leg-details long-date-format"><div class="depart">'
+	    	              +'<span class="station-tooltip" data-id="12001"><span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12001">'+data.list[i].arriveCity+'</span></span></div>'
+	    	              +'<div class="stops">'
+	    	              +'<span class="duration">'+data.list[i].flight_no+'</span>'
+	    	              +'<ul class="stop-line">'
+	    	              +'<li class="stop-line">'
+	    	              +'</li>'
+	    	              +'</ul>'
+	    	              +'<div class="leg-stops no-stops"><span class="leg-stops-green leg-stops-label">'+data.list[i].airline+'</span>'
+	    	              +'<span class="leg-stops-station"></span>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<div class="arrive"><span class="station-tooltip" data-id="900">'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12409">'+data.list[i].departCity+'</span></span>'
+	    	              +'</div>'
+	    	              +'<div class="clearfix">'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</section>'
+	    	              +'</div>'
+	    	              +'<aside class="notch-holder">'
+	    	              +'</aside>'
+	    	              +'<div class="mainquote-cba clearfix">'
+	    	              +'<div class="mainquote-wrapper-cba">'
+	    	              +'<div class="mq-container-wrapper">'
+	    	              +'<div class="mq-container">'
+	    	              +'<div class="cba-price">'
+	    	              +'<span class="mainquote-deals">총 2건 중 최저가</span>'
+	    	              +'<div class="mainquote-group-price">'
+	    	              +'<a  data-deeplink="details" target="_blank" class="mainquote-price expand-cba select-action">'
+	    	              +'<span class="" aria-hidden="true">'
+	    	              +'</span>₩'+data.list[i].price+'</a>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<a class="fss-bpk-button expand-cba select-action"   title="선택"  >'
+	    	              +'<span class="bpk-text" id="modalaction'+i+'" >선택&nbsp;</span>'
+	    	              +'<span class="bpk-icon-sm bpk-icon-pointer bpk-icon-sm--align-to-button">'
+	    	              +'</span>'
+	    	              +'</a>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</article>'
+	    	              +'</article>'
+	    	              +'</li >';
+	    	
+	    	 }
+	    	 $('#flylist').html(flist);
+	    	 
+	    	 	$(document).ready(()=>{
+	 	            	  $('#modalaction'+i+'').click(e=>{
+	 	            	  
+	 	            	  e.preventDefault();
+	 	            	  
+	 	            	  $('#content-wrap').append(skyAir.timeline.modaldal(val));
+	 	            	  $('#yesBtn').click(e=>{
+	 	 if(sessionStorage.getItem('email')===null){ 
+	 	  
+	 	 $('#modaldal').remove();
+	 	
+	 	 }else{
+	 	
+	 	            
+	 	            	  $.ajax({
+	 	            	  url:$$('x')+'/reserve',
+	 	            	  method:'post',
+	 	            	  dataType:'json',
+	 	            	  contentType:'application/json',
+	 	            	  data:JSON.stringify({
+	 	            	'airline' : val.airline,
+	 	            	  'flight_no':val.flight_no,
+	 	            	  'depart_city':val.departCity,
+	 	            	  'arrive_city':val.arriveCity,
+	 	            	  'cabin_class':val.cabin_class,
+	 	            	  'depart_date':sessionStorage.getItem('depart1'),
+	 	                  'arrive_date':sessionStorage.getItem('ret1'),
+	 	                  'email':sessionStorage.getItem('email'),
+	 	                  'phone':$('#phonenum').val(),
+	 	            	  'country':sessionStorage.getItem('country'),
+	 	            	  'firstname':sessionStorage.getItem('firstname'),
+	 	            	  'surname':sessionStorage.getItem('surname'),
+	 	            	  'gender':$('#gender').val()
+	 	            	  }),
+	 	            	  success:(x)=>{
+	 	            	  $('#modaldal').remove();
+	 	            	  $('#content-wrap').append(skyAir.timeline.modalfin(x));
+	 	            	  $('#monoBtn').click(()=>{
+	 	            	  $('#modalfin').remove();
+	 	            	  });
+	 	            	  }
+	 	            	  });
+	 	 }
+	 	            	  
+	 	            	  });
+	 	            	  $('#close').click(()=>{
+	 	            	  $('#modaldal').remove();
+	 	            	  });
+	 	            	  $('#noBtn').click(()=>{
+	 	            	  
+	 	            	  $('#modaldal').remove();
+	 	            	  });
+	 	            	  });
+	 	            	  
+	 	              });
+	 	  
+ 	        
+ 	           
+	    	for(var i=start_page;i<=end_page;i++){
+	    	pagination+='<span><a onclick="skyAir.timeline.firstlist('+i+')" style="cursor: pointer; padding-left:3%; font-size:30px; ">'+i+'</a><span>';
+	    	}
+	    	
+	    	if(parseInt(block_size)<parseInt(total_page)){
+	    	pagination+=
+	    	  
+	    	       '<span data-id="next" class="next" id="next">'
+	    	       +'<button title="다음 페이지" style="padding-left:70%; color:black; ">NEXT</button></span>';
+	    	     
+	    	      
+	    	}
+	    	if(parseInt(start_page)!=1){
+	    	pagination+=
+	    	
+	    	'<span data-id="next" class="next" id="prev">'
+	    	+'<button title="다음 페이지" style="padding-left:70%; color:black; ">PREV</button></span>';
+	    	
+	    	
+	    	};
+	    	  	$('#flylist2').html(pagination);
+	    	  
+	    	
+	    	
+	    	
+	    	$('#next').click(e=>{
+	    		
+	    	var i=(parseInt(start_page)+parseInt(block_size));
+	    	skyAir.timeline.firstlist(i);
+	    	});
+	    	
+	    	
+	    	           
+	    	           sessionStorage.setItem('flist',flist);	 
+	    	
+	    	 
+	    	 
+	    	 
+	    	 
+	    	 
+	    	   }  
+	    	   });
+	});
+	$(document).ready(function(){
+	// $('#pagewrap').append(skyAir.timeline.modaldal());
+	
 	$.ajax({
 	url:$$('x')+'/price',
 	method:'post',
@@ -820,10 +1058,10 @@ skyAir.ticket=(()=>{
 	setContentView();
 	  	
 	$('#identity').click(()=>{
-		alert('skyscanner');
-		var ctx=$$('x');
+	
+	var ctx=$$('x');
 	 if(sessionStorage.getItem('email')===null) {
-		  $('body').empty();
+	  $('body').empty();
 	  	  location.reload();
 	      skyAir.common.init(ctx);
 	      $('#home-container').removeClass('#home-container').addClass('.homecontent').css("background-image", "url(//content.skyscnr.com/6bf5a29ce130132f28e912434f295b76/canada-lake-feb.jpg?crop=2000px:599px&quality=80)");
@@ -834,24 +1072,24 @@ skyAir.ticket=(()=>{
 	      $('#saleone').removeClass('#saleone').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/3d13492ebf1c1b0ac415bea8e172b960/GettyImages-505532917.jpg?resize=500px:600px&quality=50)");
 	      $('#saletwo').removeClass('#saletwo').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/7adba3a46af3ca29695f96937d19fcf1/GettyImages-149127892.jpg?resize=500px:600px&quality=50)");
 	      $('#saleth').removeClass('#saleth').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/e0a42512a8f7baba699430c43d90e339/GettyImages-465582049.jpg?resize=500px:600px&quality=50)");
-		}else{
-			$('body').empty();
-			skyAir.common.init(ctx);
-		      $('#home-container').removeClass('#home-container').addClass('.homecontent').css("background-image", "url(//content.skyscnr.com/6bf5a29ce130132f28e912434f295b76/canada-lake-feb.jpg?crop=2000px:599px&quality=80)");
-		      $('#first').removeClass('#first').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/853dd1ece19afb1f46dabe8485021767/GettyImages-564760601.jpg?resize=500px:600px&quality=50)");
-		      $('#two').removeClass('#two').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/a60a89126ed3f927d123c815b610298d/GettyImages-475335963.jpg?resize=600px:600px&quality=50)");
-		      $('#three').removeClass('#three').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/bc42cc80dd1447615ee441e2020cbe2c/GettyImages-126509194.jpg?resize=450px:603px&quality=50)");
-		      $('#ssssssss').css("background-image","url(https://css.skyscnr.com/inspiration/static/embeddableMap/svg_map_20170525.svg)"); 
-		      $('#saleone').removeClass('#saleone').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/3d13492ebf1c1b0ac415bea8e172b960/GettyImages-505532917.jpg?resize=500px:600px&quality=50)");
-		      $('#saletwo').removeClass('#saletwo').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/7adba3a46af3ca29695f96937d19fcf1/GettyImages-149127892.jpg?resize=500px:600px&quality=50)");
-		      $('#saleth').removeClass('#saleth').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/e0a42512a8f7baba699430c43d90e339/GettyImages-465582049.jpg?resize=500px:600px&quality=50)"); 
-		      $('#loginBu').attr('class','bpk-button-30cpF bpk-button--secondary-lyMj0').attr('id','account').removeAttr('data-toggle','').removeAttr('data-target','').text('로그아웃');
-		      $('#account').click(()=>{
-		    	  
-		    	  sessionStorage.clear();
-		    	  location.reload();
-		      });
-		}	  	  
+	}else{
+	$('body').empty();
+	skyAir.common.init(ctx);
+	      $('#home-container').removeClass('#home-container').addClass('.homecontent').css("background-image", "url(//content.skyscnr.com/6bf5a29ce130132f28e912434f295b76/canada-lake-feb.jpg?crop=2000px:599px&quality=80)");
+	      $('#first').removeClass('#first').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/853dd1ece19afb1f46dabe8485021767/GettyImages-564760601.jpg?resize=500px:600px&quality=50)");
+	      $('#two').removeClass('#two').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/a60a89126ed3f927d123c815b610298d/GettyImages-475335963.jpg?resize=600px:600px&quality=50)");
+	      $('#three').removeClass('#three').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/bc42cc80dd1447615ee441e2020cbe2c/GettyImages-126509194.jpg?resize=450px:603px&quality=50)");
+	      $('#ssssssss').css("background-image","url(https://css.skyscnr.com/inspiration/static/embeddableMap/svg_map_20170525.svg)"); 
+	      $('#saleone').removeClass('#saleone').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/3d13492ebf1c1b0ac415bea8e172b960/GettyImages-505532917.jpg?resize=500px:600px&quality=50)");
+	      $('#saletwo').removeClass('#saletwo').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/7adba3a46af3ca29695f96937d19fcf1/GettyImages-149127892.jpg?resize=500px:600px&quality=50)");
+	      $('#saleth').removeClass('#saleth').addClass('.image hi-res-image-loaded').css("background-image","url(https://content.skyscnr.com/e0a42512a8f7baba699430c43d90e339/GettyImages-465582049.jpg?resize=500px:600px&quality=50)"); 
+	      $('#loginBu').attr('class','bpk-button-30cpF bpk-button--secondary-lyMj0').attr('id','account').removeAttr('data-toggle','').removeAttr('data-target','').text('로그아웃');
+	      $('#account').click(()=>{
+	    	  
+	    	  sessionStorage.clear();
+	    	  location.reload();
+	      });
+	}	  	  
 	  	
 	      
 	    });
@@ -887,7 +1125,8 @@ skyAir.ticket=(()=>{
 	      });
 	      $('#flight-controls-content dt ol li').removeAttr("checked");
 	      $('#multi').click(e=>{
-	    	  //$('input[name=all]').attr("checked","true");
+	    	
+	    	  // $('input[name=all]').attr("checked","true");
 	    	  e.preventDefault();
 	    	  $.ajax({
 	  url:$$('x')+'/choice',
@@ -909,15 +1148,14 @@ skyAir.ticket=(()=>{
 	  $('#gmp').click(e=>{
 	 // $('input[name=gmp]').Attr("checked","true");
 	  search='GMP';
-	/*	  if(count<2){
-	  count=count+1;
-	  }else{alert('노빠꾸')}
-	  */
+	/*
+	 * if(count<2){ count=count+1; }else{alert('노빠꾸')}
+	 */
 	  e.preventDefault();
 	  });
 	  
 	  $('#kal').click(e=>{
-	//  $('input[name=kal]').Attr("checked","true");
+	// $('input[name=kal]').Attr("checked","true");
 	  column='대한항공';
 	  a=a+1;
 	  e.preventDefault();
@@ -944,7 +1182,7 @@ skyAir.ticket=(()=>{
 	
 	  });
 	  $('#jeju').click(e=>{
-	//  $('input[name=jeju]').Attr("checked","true");
+	// $('input[name=jeju]').Attr("checked","true");
 	  column='제주항공';
 	  a=a+1;
 	  e.preventDefault();
@@ -994,7 +1232,7 @@ skyAir.ticket=(()=>{
 	},
 	error:(x,m,s)=>{
 	
-	}
+		}
 	})
 	
 	  });
@@ -1006,7 +1244,6 @@ skyAir.ticket=(()=>{
 	$.ajax({
 	url:$$('x')+'/flight',
 	method:'post',
-	
 	dataType: 'json',
 	data : JSON.stringify({
 	                'search' : search,
@@ -1024,13 +1261,12 @@ skyAir.ticket=(()=>{
 	}
 	})
 	
-	  });
-
-	};
+	});
+};
 	var setContentView=function(){
 	
 	$('#flylist').append($$('flist'));
-	/*$('#flylist').append(sessionStorage.getItem('flist'));*/
+	/* $('#flylist').append(sessionStorage.getItem('flist')); */
 	$('body').append(
 	'<div id="pagewrap" class="clearfix">'
 +'        <div class="wrap h1-heading">'
@@ -1050,18 +1286,15 @@ skyAir.ticket=(()=>{
 +'</div>'
 	);
 	$('#loginBut').click(()=>{
-		
-		sessionStorage.clear();
-		location.reload();
-		
+	sessionStorage.clear();
+	location.reload();
+	
 	});
-	
-	
-	};
+};
 	var fly=function(x){
 	var flist='<li class="day-list-item clearfix ">'
         $.each( x,(i,val)=>{
-            /*  var rating=val.rating.split("")[0].split(".");*/
+            /* var rating=val.rating.split("")[0].split("."); */
            	flist+=' <article data-cid="model_44977" data-deeplink="details" class="card result clearfix no-details  " ontouchstart="">'
               +'<div class="card-body clearfix">'
               +'<div class="clearfix carrier">'
@@ -1147,15 +1380,16 @@ skyAir.ticket=(()=>{
               +'</div>'
               +'</div>'
               +'</article>'
-             
+             /* $('<img/>').attr('src',arr[i]).appendTo($('#airline'+i)); */
               $(document).ready(()=>{
             	  $('#modalaction'+i+'').click(e=>{
             	  e.preventDefault();
-            	  alert('선택 항공=>'+val.airline+', 선택 항공 번호=>'+val.flight_no);
+            	  
             	  $('#content-wrap').append(skyAir.timeline.modaldal(val));
             	  $('#yesBtn').click(e=>{
-            	
-            
+	 if(sessionStorage.getItem('email')===null){ 
+	 $('#modaldal').remove();
+	 }else{
             	  $.ajax({
             	  url:$$('x')+'/reserve',
             	  method:'post',
@@ -1164,17 +1398,28 @@ skyAir.ticket=(()=>{
             	  data:JSON.stringify({
             	'airline' : val.airline,
             	  'flight_no':val.flight_no,
-            	  'departCity':val.departCity,
-            	  'arriveCity':val.arriveCity,
+            	  'depart_city':val.departCity,
+            	  'arrive_city':val.arriveCity,
             	  'cabin_class':val.cabin_class,
-            	  'departDate':sessionStorage.getItem('depart1'),
-                  'arriveDate':sessionStorage.getItem('ret1')
+            	  'depart_date':sessionStorage.getItem('depart1'),
+                  'arrive_date':sessionStorage.getItem('ret1'),
+                  'email':sessionStorage.getItem('email'),
+                  'phone':$('#phonenum').val(),
+            	  'country':sessionStorage.getItem('country'),
+            	  'firstname':sessionStorage.getItem('firstname'),
+            	  'surname':sessionStorage.getItem('surname'),
+            	  'gender':$('#gender').val()
             	  }),
             	  success:(x)=>{
-            	  alert('예매성공');
             	  $('#modaldal').remove();
+            	  $('#content-wrap').append(skyAir.timeline.modalfin(x));
+            	  $('#monoBtn').click(()=>{
+            	  $('#modalfin').remove();
+            	  });
             	  }
             	  });
+	 }
+            	  
             	  });
             	  $('#close').click(()=>{
             	  $('#modaldal').remove();
@@ -1224,12 +1469,10 @@ skyAir.timeline={
 	+'</button>'
 	+'<div class="search-summary-main return">'
 	+'<div class="search-summary-places " >'
-	/*+'<h2>'
-	+'서울 (모두)'
-	+'<span class="visually-hidden">to</span>'
-	+'<span aria-hidden="true">&nbsp;-&nbsp;</span>'
-	+'상하이 (모두)'
-	+'</h2>'*/
+	/*
+	 * +'<h2>' +'서울 (모두)' +'<span class="visually-hidden">to</span>' +'<span
+	 * aria-hidden="true">&nbsp;-&nbsp;</span>' +'상하이 (모두)' +'</h2>'
+	 */
 	+'<p>&nbsp;2 항공편</p>'
 	+'</div>'
 	+'<p class="search-summary-info">'
@@ -1277,6 +1520,7 @@ skyAir.timeline={
 	+skyAir.timeline.btns()
 	+'<ul id="flylist" class="day-list clearfix fss-tap-anywhere tap-b fss-ticket-style animate-plane">'
 	+'</ul>'
+	+'<div id="flylist2" style="padding-left:12%; margin-top:3%; "></div>'
 	+'</div>'
 	+skyAir.timeline.filter()
 	+'            <div class="day-searching-message"></div>'
@@ -1287,9 +1531,7 @@ skyAir.timeline={
 	+'<div id="adslot-c68614f5" class="strevda-slot" data-type="bottomAd" data-google-query-id="CPmt4eS-_tYCFQYqlgodCXsEbg"><div id="google_ads_iframe_/24268069/skyscanner.co.kr/flights_funnel/day_view/leaderboard_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/24268069/skyscanner.co.kr/flights_funnel/day_view/leaderboard_0" title="3rd party ad content" name="google_ads_iframe_/24268069/skyscanner.co.kr/flights_funnel/day_view/leaderboard_0" width="728" height="90" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" srcdoc="" style="border: 0px; vertical-align: bottom;"></iframe></div></div>'
 	+'<script>window.oc=window.oc||{};oc.renderedComponents=oc.renderedComponents||{};oc.renderedComponents["strevda-slot"]="1.0.9";</script>'
 	+'    </div>'
-	+'        <p class="seo-footer">'
-	+'            이 페이지에 문제가 있는 경우 <a title="스카이스캐너로 연락" id="ss-contact-help" >스카이스캐너로 연락</a>주시기 바랍니다.'
-	+'        </p>'
+	
 	+'</div>'
 	+'</div>'
 	
@@ -1678,6 +1920,8 @@ skyAir.timeline={
 	   +'</button>'
 	   +'<div>'
 	   +'<h2>선택하신 '+x.airline+'을 예약할까요?</h2>'
+	   +'<input type="text" id="phonenum" style="margin-left:27%;  margin-bottom:3%; width: 218px" placeholder="번호를 -제외하고 입력해 주세요"  ></br>'
+	   +'<select id="gender" style="margin-left:41%;  margin-bottom:10%;"><option>MALE</option><option>FEMALE</option></select>'
 	   +'<button class="tertiary good" id="yesBtn">'
 	   +'<span class="icon" aria-hidden="true">'
 	   +'</span><!-- react-text: 911 -->예<!-- /react-text --></button>'
@@ -1689,10 +1933,464 @@ skyAir.timeline={
 	   +'</div>'
 	   +'</div>'
 	   +'</div>'
-	   }
+	   },
+	 modalfin:(x)=>{
+	   return'<div class="fss-fdetails-inner pqs-content "><div class="fss-fdetails-inner-container pqs-form-wrapper" style="top: 0px;">'
+	   +'<div id="modalfin" class="fss-fdetails-pqs-form pqs-form"><button id="close" class="close"><span class="close-icon">'
+	   +'</span>'
+	   +'</button>'
+	   +'<div>'
+	   +'<h2>'+x.list.surname+'이 선택하신 '+x.list.airline+'이 예매되었습니다.</h2>'
+	   +'<h4>예약번호:'+x.list.reservationNo+'</h4>'
+	   +'<h4>출발지:'+x.list.depart_city+' 출발일자: '+sessionStorage.getItem('depart1')+'</h4>'
+	   +'<h4>도착지:'+x.list.arrive_city+' 도착일자: '+sessionStorage.getItem('ret1')+' 탑승인원:'+sessionStorage.getItem('n1')+'</h4>'
+	   +'<button class="tertiary bad" id="monoBtn">'
+	   +'<span class="icon" aria-hidden="true">'
+	   +'</span><!-- react-text: 914 -->확인<!-- /react-text -->'
+	   +'</button>'
+	   +'</div>'
+	   +'</div>'
+	   +'</div>'
+	   +'</div>'
+	   },
 
-
+	 firstlist:(x)=>{
+	 return	$(document).ready(function(){
 	
+	 
+	   $.ajax({
+	    	   url:$$('x')+'/flightlist/'+x,
+	    	   method:'get',
+	    	   dataType:'json',
+	    	   contentType:'application/json',
+	    	   success:(data)=>{
+	    	
+	    	   var pagination='';
+	    	    var start_page=data.startPage;
+	    	var end_page=data.endPage;
+	    	var page_num=data.pageNum;
+	    	var page_size=data.pageSize;
+	    	var total_page=data.totalPage;
+	    	var block_size=data.blockSize;
+	    	console.log('start_page '+start_page )
+	    	console.log('end_page '+end_page )
+	    	console.log('page_num '+page_num )
+	    	console.log('page_size '+page_size)
+	    	console.log('total_page'+total_page)
+	    	console.log('block_size '+block_size )
+	    	console.log(data.count);
+	    	console.log(data.list[5].price);
+	    	console.log(data.list[9].price)
+	    	
+	    	if(parseInt(data.count)>=parseInt(end_page)*parseInt(page_size)){
+	    	var flist='';
+	    	for(var i=(page_num-1)*page_size+1;i<=page_num*page_size;i++){
+	    	  	flist+='<li class="day-list-item clearfix ">'
+	    	           	+' <article data-cid="model_44977" data-deeplink="details" class="card result clearfix no-details  " ontouchstart="">'
+	    	              +'<div class="card-body clearfix">'
+	    	              +'<div class="clearfix carrier">'
+	    	              +'<img src="//logos.skyscnr.com/images/airlines/favicon/78.png" alt="제주항공" onerror="__imgErrRemove__(this)">'
+	    	              +'<span>제주항공</span>'
+	    	              +'</div>'
+	    	              +'<section data-id="'+i+'" class="card-main leg clearfix dept">'
+	    	              +'<div class="big-airline">'
+	    	              +'<img class="big"   src="//logos.skyscnr.com/images/airlines/small/78.png" alt="대한항공" data-name="'+data.list[i].airline+'" onerror="__logoReplace__(this)">'
+	    	              +'</div>'
+	    	              +'<div class="leg-details long-date-format">'
+	    	              +'<div class="depart"><span class="station-tooltip" data-id=900>'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12409">'+data.list[i].departCity+'</span></span>'
+	    	              +'</div>'
+	    	              +'<div class="stops">'
+	    	              +'<span class="duration">1시간 05분</span>'
+	    	              +'<ul class="stop-line">'
+	    	              +'<li class="stop-line">'
+	    	              +'</li>'
+	    	              +'</ul>'
+	    	              +'<div class="leg-stops no-stops">'
+	    	              +'<span class="leg-stops-green leg-stops-label">'+data.list[i].cabin_class+' </span>'
+	    	              +'<span class="leg-stops-station"></span>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<div class="arrive"><span class="station-tooltip" data-id=900>'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12001">'+data.list[i].arriveCity+'</span>'
+	    	              +'</span>'
+	    	              +'</div>'
+	    	              +'<div class="clearfix">'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</section>'
+	    	              +'<section data-id="'+i+'" class="card-main leg clearfix retn">'
+	    	              +' <div class="big-airline" >'
+	    	              +'<img class="big" id="airline" src="//logos.skyscnr.com/images/airlines/small/78.png" alt="Spring Airlines" data-name="Spring Airlines" onerror="__logoReplace__(this)">'
+	    	              +'</div>'
+	    	              +'<div class="leg-details long-date-format"><div class="depart">'
+	    	              +'<span class="station-tooltip" data-id="12001"><span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12001">'+data.list[i].arriveCity+'</span></span></div>'
+	    	              +'<div class="stops">'
+	    	              +'<span class="duration">'+data.list[i].flight_no+'</span>'
+	    	              +'<ul class="stop-line">'
+	    	              +'<li class="stop-line">'
+	    	              +'</li>'
+	    	              +'</ul>'
+	    	              +'<div class="leg-stops no-stops"><span class="leg-stops-green leg-stops-label">'+data.list[i].airline+'</span>'
+	    	              +'<span class="leg-stops-station"></span>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<div class="arrive"><span class="station-tooltip" data-id="900">'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12409">'+data.list[i].departCity+'</span></span>'
+	    	              +'</div>'
+	    	              +'<div class="clearfix">'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</section>'
+	    	              +'</div>'
+	    	              +'<aside class="notch-holder">'
+	    	              +'</aside>'
+	    	              +'<div class="mainquote-cba clearfix">'
+	    	              +'<div class="mainquote-wrapper-cba">'
+	    	              +'<div class="mq-container-wrapper">'
+	    	              +'<div class="mq-container">'
+	    	              +'<div class="cba-price">'
+	    	              +'<span class="mainquote-deals">총 2건 중 최저가</span>'
+	    	              +'<div class="mainquote-group-price">'
+	    	              +'<a  data-deeplink="details" target="_blank" class="mainquote-price expand-cba select-action">'
+	    	              +'<span class="" aria-hidden="true">'
+	    	              +'</span>₩'+data.list[i].price+'</a>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<a class="fss-bpk-button expand-cba select-action"   title="선택"  >'
+	    	              +'<span class="bpk-text" id="modalaction'+i+'" >선택&nbsp;</span>'
+	    	              +'<span class="bpk-icon-sm bpk-icon-pointer bpk-icon-sm--align-to-button">'
+	    	              +'</span>'
+	    	              +'</a>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</article>'
+	    	              +'</article>'
+	    	              +'</li >';
+	    	};
+	    	}else{
+	    	if(page_num==end_page){
+	    	
+	    	page_size=data.count-page_size*(page_num-1);
+	    	for(var i=(parseInt(page_num)-1)*parseInt(page_size)+1;i<=(parseInt(page_num)-1)*parseInt(page_size)+parseInt(page_size);i++){
+	    	flist+='<li class="day-list-item clearfix ">'
+	    	           	+' <article data-cid="model_44977" data-deeplink="details" class="card result clearfix no-details  " ontouchstart="">'
+	    	              +'<div class="card-body clearfix">'
+	    	              +'<div class="clearfix carrier">'
+	    	              +'<img src="//logos.skyscnr.com/images/airlines/favicon/78.png" alt="제주항공" onerror="__imgErrRemove__(this)">'
+	    	              +'<span>제주항공</span>'
+	    	              +'</div>'
+	    	              +'<section data-id="'+i+'" class="card-main leg clearfix dept">'
+	    	              +'<div class="big-airline">'
+	    	              +'<img class="big"   src="//logos.skyscnr.com/images/airlines/small/78.png" alt="대한항공" data-name="'+data.list[i].airline+'" onerror="__logoReplace__(this)">'
+	    	              +'</div>'
+	    	              +'<div class="leg-details long-date-format">'
+	    	              +'<div class="depart"><span class="station-tooltip" data-id=900>'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12409">'+data.list[i].departCity+'</span></span>'
+	    	              +'</div>'
+	    	              +'<div class="stops">'
+	    	              +'<span class="duration">1시간 05분</span>'
+	    	              +'<ul class="stop-line">'
+	    	              +'<li class="stop-line">'
+	    	              +'</li>'
+	    	              +'</ul>'
+	    	              +'<div class="leg-stops no-stops">'
+	    	              +'<span class="leg-stops-green leg-stops-label">'+data.list[i].cabin_class+' </span>'
+	    	              +'<span class="leg-stops-station"></span>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<div class="arrive"><span class="station-tooltip" data-id=900>'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12001">'+data.list[i].arriveCity+'</span>'
+	    	              +'</span>'
+	    	              +'</div>'
+	    	              +'<div class="clearfix">'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</section>'
+	    	              +'<section data-id="'+i+'" class="card-main leg clearfix retn">'
+	    	              +' <div class="big-airline" >'
+	    	              +'<img class="big" id="airline" src="//logos.skyscnr.com/images/airlines/small/78.png" alt="Spring Airlines" data-name="Spring Airlines" onerror="__logoReplace__(this)">'
+	    	              +'</div>'
+	    	              +'<div class="leg-details long-date-format"><div class="depart">'
+	    	              +'<span class="station-tooltip" data-id="12001"><span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12001">'+data.list[i].arriveCity+'</span></span></div>'
+	    	              +'<div class="stops">'
+	    	              +'<span class="duration">'+data.list[i].flight_no+'</span>'
+	    	              +'<ul class="stop-line">'
+	    	              +'<li class="stop-line">'
+	    	              +'</li>'
+	    	              +'</ul>'
+	    	              +'<div class="leg-stops no-stops"><span class="leg-stops-green leg-stops-label">'+data.list[i].airline+'</span>'
+	    	              +'<span class="leg-stops-station"></span>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<div class="arrive"><span class="station-tooltip" data-id="900">'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12409">'+data.list[i].departCity+'</span></span>'
+	    	              +'</div>'
+	    	              +'<div class="clearfix">'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</section>'
+	    	              +'</div>'
+	    	              +'<aside class="notch-holder">'
+	    	              +'</aside>'
+	    	              +'<div class="mainquote-cba clearfix">'
+	    	              +'<div class="mainquote-wrapper-cba">'
+	    	              +'<div class="mq-container-wrapper">'
+	    	              +'<div class="mq-container">'
+	    	              +'<div class="cba-price">'
+	    	              +'<span class="mainquote-deals">총 2건 중 최저가</span>'
+	    	              +'<div class="mainquote-group-price">'
+	    	              +'<a  data-deeplink="details" target="_blank" class="mainquote-price expand-cba select-action">'
+	    	              +'<span class="" aria-hidden="true">'
+	    	              +'</span>₩'+data.list[i].price+'</a>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<a class="fss-bpk-button expand-cba select-action"   title="선택"  >'
+	    	              +'<span class="bpk-text" id="modalaction'+i+'" >선택&nbsp;</span>'
+	    	              +'<span class="bpk-icon-sm bpk-icon-pointer bpk-icon-sm--align-to-button">'
+	    	              +'</span>'
+	    	              +'</a>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</article>'
+	    	              +'</article>'
+	    	              +'</li >';
+	    	};
+	    	}
+	    	else{
+	    	for(var i=(parseInt(page_num)-1)*parseInt(page_size)+1;i<=(parseInt(page_num)-1)*parseInt(page_size)+parseInt(page_size);i++){
+	    	flist+='<li class="day-list-item clearfix ">'
+	    	           	+' <article data-cid="model_44977" data-deeplink="details" class="card result clearfix no-details  " ontouchstart="">'
+	    	              +'<div class="card-body clearfix">'
+	    	              +'<div class="clearfix carrier">'
+	    	              +'<img src="//logos.skyscnr.com/images/airlines/favicon/78.png" alt="제주항공" onerror="__imgErrRemove__(this)">'
+	    	              +'<span>제주항공</span>'
+	    	              +'</div>'
+	    	              +'<section data-id="'+i+'" class="card-main leg clearfix dept">'
+	    	              +'<div class="big-airline">'
+	    	              +'<img class="big"   src="//logos.skyscnr.com/images/airlines/small/78.png" alt="대한항공" data-name="'+data.list[i].airline+'" onerror="__logoReplace__(this)">'
+	    	              +'</div>'
+	    	              +'<div class="leg-details long-date-format">'
+	    	              +'<div class="depart"><span class="station-tooltip" data-id=900>'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12409">'+data.list[i].departCity+'</span></span>'
+	    	              +'</div>'
+	    	              +'<div class="stops">'
+	    	              +'<span class="duration">1시간 05분</span>'
+	    	              +'<ul class="stop-line">'
+	    	              +'<li class="stop-line">'
+	    	              +'</li>'
+	    	              +'</ul>'
+	    	              +'<div class="leg-stops no-stops">'
+	    	              +'<span class="leg-stops-green leg-stops-label">'+data.list[i].cabin_class+' </span>'
+	    	              +'<span class="leg-stops-station"></span>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<div class="arrive"><span class="station-tooltip" data-id=900>'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12001">'+data.list[i].arriveCity+'</span>'
+	    	              +'</span>'
+	    	              +'</div>'
+	    	              +'<div class="clearfix">'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</section>'
+	    	              +'<section data-id="'+i+'" class="card-main leg clearfix retn">'
+	    	              +' <div class="big-airline" >'
+	    	              +'<img class="big" id="airline" src="//logos.skyscnr.com/images/airlines/small/78.png" alt="Spring Airlines" data-name="Spring Airlines" onerror="__logoReplace__(this)">'
+	    	              +'</div>'
+	    	              +'<div class="leg-details long-date-format"><div class="depart">'
+	    	              +'<span class="station-tooltip" data-id="12001"><span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12001">'+data.list[i].arriveCity+'</span></span></div>'
+	    	              +'<div class="stops">'
+	    	              +'<span class="duration">'+data.list[i].flight_no+'</span>'
+	    	              +'<ul class="stop-line">'
+	    	              +'<li class="stop-line">'
+	    	              +'</li>'
+	    	              +'</ul>'
+	    	              +'<div class="leg-stops no-stops"><span class="leg-stops-green leg-stops-label">'+data.list[i].airline+'</span>'
+	    	              +'<span class="leg-stops-station"></span>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<div class="arrive"><span class="station-tooltip" data-id="900">'
+	    	              +'<span class="times"></span>'
+	    	              +'<span class="stop-station" data-id="12409">'+data.list[i].departCity+'</span></span>'
+	    	              +'</div>'
+	    	              +'<div class="clearfix">'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</section>'
+	    	              +'</div>'
+	    	              +'<aside class="notch-holder">'
+	    	              +'</aside>'
+	    	              +'<div class="mainquote-cba clearfix">'
+	    	              +'<div class="mainquote-wrapper-cba">'
+	    	              +'<div class="mq-container-wrapper">'
+	    	              +'<div class="mq-container">'
+	    	              +'<div class="cba-price">'
+	    	              +'<span class="mainquote-deals">총 2건 중 최저가</span>'
+	    	              +'<div class="mainquote-group-price">'
+	    	              +'<a  data-deeplink="details" target="_blank" class="mainquote-price expand-cba select-action">'
+	    	              +'<span class="" aria-hidden="true">'
+	    	              +'</span>₩'+data.list[i].price+'</a>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'<a class="fss-bpk-button expand-cba select-action"   title="선택"  >'
+	    	              +'<span class="bpk-text" id="modalaction'+i+'" >선택&nbsp;</span>'
+	    	              +'<span class="bpk-icon-sm bpk-icon-pointer bpk-icon-sm--align-to-button">'
+	    	              +'</span>'
+	    	              +'</a>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</div>'
+	    	              +'</article>'
+	    	              +'</article>'
+	    	              +'</li >';
+	    	};
+	    	
+	    	};	
+	    	}
+	    	
+	    	
+	    	
+	    	$('#flylist').html(flist);
+	    	for(var i=parseInt(start_page);i<=parseInt(end_page);i++){
+	    	pagination+='<span><a onclick="skyAir.timeline.firstlist('+i+')" style="cursor: pointer; padding:3%; font-size:30px; ">'+i+'</a><span>';
+	    	}
+	    	
+	    	/*	if(parseInt(block_size)<parseInt(total_page)){
+	    	pagination+=
+	    	       '<span data-id="next" class="next" id="next">'
+	    	       +'<button title="다음 페이지" id="ssival" style="padding-left:70%; color:black;  ">NEXT</button></span>';
+	    	     
+	    	      
+	    	}
+	    	if(parseInt(start_page)!=1){
+	    	pagination+=
+	    	'<span data-id="next" class="next" id="prev">'
+	    	+'<button title="이전 페이지" style="padding-left:70%; color:black; ">PREV</button></span>';
+	    	
+	    	
+	    	};*/
+	    	if(parseInt(end_page)==parseInt(total_page)){
+	    	pagination+=
+	    	'<span data-id="next" class="next" id="prev">'
+	    	+'<button title="이전 페이지" style="padding-left:70%; color:black; ">PREV</button></span>';
+	    	
+	    	}else{
+	    	
+	    	if(parseInt(block_size)<parseInt(total_page)){
+	    	pagination+=
+	    	       '<span data-id="next" class="next" id="next">'
+	    	       +'<button title="다음 페이지" id="ssival" style="padding-left:70%; color:black;  ">NEXT</button></span>';
+	    	     
+	    	      
+	    	}
+	    	if(parseInt(start_page)!=1){
+	    	pagination+=
+	    	'<span data-id="next" class="next" id="prev">'
+	    	+'<button title="이전 페이지" style="padding-left:70%; color:black; ">PREV</button></span>';
+	    	
+	    	
+	    	};
+	    	
+	    	
+	    	};
+	    	
+	    	
+	    	
+	    	
+	    	  	$('#flylist2').html(pagination);
+	    	  
+	    	
+	    	
+	    	
+	    	$('#next').click(e=>{
+	    		
+	    	var i=(parseInt(start_page)+parseInt(block_size));
+	    	skyAir.timeline.firstlist(i);
+	    	});
+	    	
+	    	$('#prev').click(e=>{
+	    	
+	    	
+	    	var i=(parseInt(start_page)-parseInt(block_size));
+	    	console.log(i);
+	    	skyAir.timeline.firstlist(i);
+	    	});
+	    	           	$(document).ready(()=>{
+	    	            	  $('#modalaction'+i+'').click(e=>{
+	    	            	  e.preventDefault();
+	    	            	  
+	    	            	  $('#content-wrap').append(skyAir.timeline.modaldal(val));
+	    	            	  $('#yesBtn').click(e=>{
+	    	 if(sessionStorage.getItem('email')===null){ 
+	    	  
+	    	 $('#modaldal').remove();
+	    	
+	    	 }else{
+	    	
+	    	            
+	    	            	  $.ajax({
+	    	            	  url:$$('x')+'/reserve',
+	    	            	  method:'post',
+	    	            	  dataType:'json',
+	    	            	  contentType:'application/json',
+	    	            	  data:JSON.stringify({
+	    	            	'airline' : val.airline,
+	    	            	  'flight_no':val.flight_no,
+	    	            	  'depart_city':val.departCity,
+	    	            	  'arrive_city':val.arriveCity,
+	    	            	  'cabin_class':val.cabin_class,
+	    	            	  'depart_date':sessionStorage.getItem('depart1'),
+	    	                  'arrive_date':sessionStorage.getItem('ret1'),
+	    	                  'email':sessionStorage.getItem('email'),
+	    	                  'phone':$('#phonenum').val(),
+	    	            	  'country':sessionStorage.getItem('country'),
+	    	            	  'firstname':sessionStorage.getItem('firstname'),
+	    	            	  'surname':sessionStorage.getItem('surname'),
+	    	            	  'gender':$('#gender').val()
+	    	            	  }),
+	    	            	  success:(x)=>{
+	    	            	  $('#modaldal').remove();
+	    	            	  $('#content-wrap').append(skyAir.timeline.modalfin(x));
+	    	            	  $('#monoBtn').click(()=>{
+	    	            	  $('#modalfin').remove();
+	    	            	  });
+	    	            	  }
+	    	            	  });
+	    	 }
+	    	            	  
+	    	            	  });
+	    	            	  $('#close').click(()=>{
+	    	            	  $('#modaldal').remove();
+	    	            	  });
+	    	            	  $('#noBtn').click(()=>{
+	    	            	  
+	    	            	  $('#modaldal').remove();
+	    	            	  });
+	    	            	  });
+	    	            	  
+	    	              });
+	    	           sessionStorage.setItem('flist',flist);	 
+	    	 
+	    	   }  
+	    	   });
+	});
+	 }
 };
 
 

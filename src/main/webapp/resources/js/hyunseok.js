@@ -28,14 +28,14 @@ hyunseok.navbar=(()=>{
 		var ctx=$$('x');
 		$('body').append(hyunseok.introUI.navbar());
 		$('#homeBtn').click(()=>{
-			alert('홈');
+			
 			$('body').empty();
 			$('.header').empty();
 			hyunseok.navbar.init();
 			hyunseok.home.init();
 			});
 		$('#adminBtn').click(()=>{
-			alert('관리자');
+			
 			$('body').empty();
 			$('.header').empty();
 			hyunseok.navbar.init();
@@ -44,7 +44,7 @@ hyunseok.navbar=(()=>{
 			hyunseok.admin.init();
 			});
 		$('#memberBtn').click(()=>{
-			alert('회원');
+			
 			$('body').empty();
 			$('.header').empty();
 			hyunseok.navbar.init();
@@ -53,7 +53,7 @@ hyunseok.navbar=(()=>{
 			hyunseok.member.init();
 			});
 		$('#dbBtn').click(()=>{
-			alert('DB');
+			
 			$('body').empty();
 			$('.header').empty();
 			hyunseok.navbar.init();
@@ -63,7 +63,8 @@ hyunseok.navbar=(()=>{
 			
 		});
 		$('#hotelBtn').click(()=>{
-			alert('DB');
+
+
 			$('body').empty();
 			$('.header').empty();
 			hyunseok.navbar.init();
@@ -120,14 +121,14 @@ hyunseok.home=(()=>{
 		});
 		
 		$('#list-adminBtn').click(()=>{
-			alert('관리자.');
+			
 			$('body').empty();
 			hyunseok.navbar.init();
 			$('body').append(hyunseok.compUI.admin());
 			hyunseok.admin.init();
 			});
 		$('#list-adminBtn-admin').click(()=>{
-			alert('관리자');
+			
 			$('body').empty();
 			hyunseok.navbar.init();
 		
@@ -135,7 +136,7 @@ hyunseok.home=(()=>{
 			hyunseok.admin.init();
 			});
 		$('#list-db').click(()=>{
-			alert('DB 페이지');
+			
 			$('body').empty();
 			$('.header').empty();
 			hyunseok.navbar.init();
@@ -145,7 +146,7 @@ hyunseok.home=(()=>{
 			
 			});
 		$('#list-db-airport').click(()=>{
-			alert('항공 DB 페이지');
+			
 			$('body').empty();
 			$('.header').empty();
 			hyunseok.navbar.init();
@@ -154,7 +155,7 @@ hyunseok.home=(()=>{
 			hyunseok.airport.init();
 			});
 		$('#list-db-hotel').click(()=>{
-			alert('호텔 DB 페이지');
+			
 			$('body').empty();
 			$('.header').empty();
 			hyunseok.navbar.init();
@@ -163,7 +164,7 @@ hyunseok.home=(()=>{
 			hyunseok.hotel.init();
 			});
 		$('#list-memberBtn').click(()=>{
-			alert('Member 페이지');
+			
 			$('body').empty();
 			$('.header').empty();
 			hyunseok.navbar.init();
@@ -171,7 +172,7 @@ hyunseok.home=(()=>{
 			hyunseok.member.init();
 			});
 		$('#list-memberBtn-read').click(()=>{
-			alert('Member 페이지');
+			
 			$('body').empty();
 			$('.header').empty();
 			hyunseok.navbar.init();
@@ -204,12 +205,12 @@ hyunseok.admin=(()=>{
 		
 		
 		$('#admin-update-btn').click(e=>{
-			alert('관리자 정보 수정');
+			
 			var i=$('#w3-input-email').val();
 			var s=$('#w3-input-surname').val();
 			var f=$('#w3-input-firstname').val();
 			var p=$('#w3-input-password').val();
-			alert('email'+i);
+			
 			
 			e.preventDefault();
 			$.ajax({
@@ -224,7 +225,7 @@ hyunseok.admin=(()=>{
 				}),
 				contentType:'application/json',
 				 success : (data)=>{
-					 alert('홈');
+					 
 						$('body').empty();
 						$('.header').empty();
 						hyunseok.navbar.init();
@@ -238,11 +239,11 @@ hyunseok.admin=(()=>{
 			});
 		
 		$('#new-admin-update-btn').click(e=>{
-			alert('새 관리자 정보 수정 ');	
+				
 			var r=$('#w3-input-email1').val();			
 			var p=$('#w3-input-password1').val();
-			alert('email'+r);
-			alert('password'+p);
+			
+			
 			e.preventDefault();
 			$.ajax({
 				url:ctx+'/updateAdmin/new',
@@ -254,8 +255,8 @@ hyunseok.admin=(()=>{
 				}),
 				contentType:'application/json',
 				success : (data)=>{
-					alert('ajax 통신:'+data.success);			          
-					alert('홈');
+								          
+					
 					$('body').empty();
 					$('.header').empty();
 					hyunseok.navbar.init();
@@ -268,7 +269,7 @@ hyunseok.admin=(()=>{
 			
 		});
 		$('#admin-update-btn-cancel').click(e=>{
-			alert('관리자 정보 수정 취소');
+			
 			$.getJSON(ctx+'/admin/now',data=>{
 				$('#w3-input-email').val(data.email);			
 				$('#w3-input-firstname').val(data.firstname);
@@ -279,7 +280,7 @@ hyunseok.admin=(()=>{
 			});
 		
 		$('#new-admin-update-btn-cancel').click(e=>{
-			alert('새 관리자 정보 수정 취소');
+			
 			$('#w3-input-email1').val("");
 			$('#w3-input-password1').val("");
 		});
@@ -350,7 +351,7 @@ hyunseok.member=(()=>{
 		$('#paging').append(pagination);
 		
 		$('#next').click(e=>{
-			alert('next');	
+				
 		var i=(parseInt(start_page)+parseInt(block_size));
 			hyunseok.member.list(i);
 		});
@@ -365,9 +366,9 @@ hyunseok.member=(()=>{
 	  
 	
 	   	$('#member-search-btn').click(e=>{
-			alert('멤버 검색');
+			
 			var k=$('#searchContent').val();
-			alert('searchContent'+k);
+			
 			if(k==""){
 				alert('검색어를 입력해 주세요');
 			};
@@ -661,7 +662,7 @@ hyunseok.member=(()=>{
 					dataType:'json',		
 					contentType:'application/json',
 				success : (data)=>{
-				        alert('ajax 통신:'+data.success);		
+				        		
 				        var memberList='';
 				   		var pagination='';
 				   	    var start_page=data.startPage;
@@ -684,7 +685,7 @@ hyunseok.member=(()=>{
 
 				   		}else{
 				   			if(parseInt(data.count)>=parseInt(end_page)*parseInt(page_size)){
-				   				alert('AA');
+				   				
 				   				for(var i=(page_num-1)*page_size+1;i<=page_num*page_size;i++){
 				   					memberList+='<tr id="tr-'+i+'"><td><input class="check-b" type="checkbox" id="check-'+i+'" name="check"></td><td id="email-'+i+'">'+data.list[i].email
 				   					+'</td><td  id="firstname-'+i+'">'+data.list[i].firstName+'</td><td  id="surname-'+i+'">'+data.list[i].surname+'</td><td  id="country-'+i+'">'
@@ -692,7 +693,7 @@ hyunseok.member=(()=>{
 				   				};
 				   			}else{
 				   				if(page_num==end_page){
-				   					alert('BB');
+				   					
 				   				page_size=data.count-page_size*(page_num-1);
 				   				console.log('page_size'+page_size);
 				   				console.log('i=='+parseInt((parseInt(page_num)-1)*parseInt(page_size)));
@@ -705,7 +706,7 @@ hyunseok.member=(()=>{
 				   				};
 				   					}
 				   				else{
-				   					alert('CC');
+				   					
 				   				for(var i=(parseInt(page_num)-1)*parseInt(page_size)+1;i<=(parseInt(page_num)-1)*parseInt(page_size)+parseInt(page_size);i++){
 				   					memberList+='<tr id="tr-'+i+'"><td><input class="check-b" type="checkbox" id="check-'+i+'" name="check"></td><td id="email-'+i+'">'+data.list[i].email
 				   					+'</td><td  id="firstname-'+i+'">'+data.list[i].firstName+'</td><td  id="surname-'+i+'">'+data.list[i].surname+'</td><td  id="country-'+i+'">'
